@@ -205,3 +205,93 @@
 2022-03-11 18:16:30,869 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 12
 2022-03-11 18:16:40,411 FATAL a.f.RecordMaintenanceSystem [main] null
 2022-03-11 18:17:20,837 FATAL a.f.RecordMaintenanceSystem [main] null
+2022-03-13 20:00:35,777 FATAL a.f.RecordMaintenanceSystem [main] null
+2022-03-13 20:02:18,705 FATAL a.f.RecordMaintenanceSystem [main] null
+2022-03-13 20:02:33,493 FATAL a.f.RecordMaintenanceSystem [main] null
+2022-03-13 20:02:44,533 FATAL a.f.RecordMaintenanceSystem [main] null
+2022-03-13 20:03:11,540 FATAL a.f.RecordMaintenanceSystem [main] null
+2022-03-13 20:03:40,648 FATAL a.f.RecordMaintenanceSystem [main] null
+2022-03-13 20:03:53,995 FATAL a.f.RecordMaintenanceSystem [main] null
+2022-03-13 20:04:21,564 FATAL a.f.RecordMaintenanceSystem [main] null
+2022-03-13 20:04:54,716 FATAL a.f.RecordMaintenanceSystem [main] null
+2022-03-13 20:06:45,585 FATAL a.f.RecordMaintenanceSystem [main] null
+2022-03-13 20:07:19,030 FATAL a.f.RecordMaintenanceSystem [main] null
+2022-03-13 20:07:35,100 FATAL a.f.RecordMaintenanceSystem [main] null
+2022-03-13 20:08:08,454 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 5
+2022-03-13 20:08:08,457 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 12
+2022-03-13 21:12:08,331 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 5
+2022-03-13 21:12:08,335 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 12
+2022-03-13 21:13:46,267 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 5
+2022-03-13 21:13:46,270 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 12
+2022-03-13 21:18:02,529 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 20
+2022-03-13 21:18:02,532 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : -3
+2022-03-13 21:23:40,911 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 17
+2022-03-13 21:23:40,913 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 0
+2022-03-13 21:24:51,742 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 17
+2022-03-13 21:24:51,744 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 0
+2022-03-13 21:26:37,776 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 5
+2022-03-13 21:26:37,779 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 12
+2022-03-13 23:28:06,694 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 20
+2022-03-13 23:28:06,697 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : -3
+2022-03-13 23:28:46,251 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 5
+2022-03-13 23:28:46,254 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 12
+2022-03-13 23:57:17,751 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 5
+2022-03-13 23:57:17,754 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 12
+2022-03-14 00:06:42,606 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 5
+2022-03-14 00:06:42,609 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 12
+2022-03-14 00:08:16,098 ERROR a.f.RecordMaintenanceSystem [main] Issue With user defined config file: empty/missing, Defalut Configs used
+2022-03-14 00:08:16,216 FATAL a.f.RecordMaintenanceSystem [main] File Not found
+2022-03-14 00:08:41,263 ERROR a.f.RecordMaintenanceSystem [main] Issue With user defined config file: empty/missing, Defalut Configs used
+2022-03-14 00:08:41,413 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 20
+2022-03-14 00:08:41,413 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : -3
+2022-03-14 00:09:13,993 ERROR a.f.RecordMaintenanceSystem [main] Issue With user defined config file: empty/missing, Defalut Configs used
+2022-03-14 00:09:14,130 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 5
+2022-03-14 00:09:14,130 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 12
+2022-03-14 00:09:57,170 ERROR a.f.RecordMaintenanceSystem [main] Issue With user defined config file: empty/missing, Defalut Configs used
+2022-03-14 00:09:57,173 FATAL a.f.RecordMaintenanceSystem [main] File Not Found
+2022-03-14 00:10:42,892 ERROR a.f.RecordMaintenanceSystem [main] Issue With user defined config file: empty/missing, Defalut Configs used
+2022-03-14 00:10:42,984 ERROR a.f.RecordMaintenanceSystem [main] Database File Not Found, new will be made
+2022-03-14 00:10:42,984 FATAL a.f.RecordMaintenanceSystem [main] Cannot invoke "java.util.List.iterator()" because "beanList" is null
+2022-03-14 00:12:52,913 ERROR a.f.RecordMaintenanceSystem [main] Issue With user defined config file: empty/missing, Defalut Configs used
+2022-03-14 00:12:52,999 ERROR a.f.RecordMaintenanceSystem [main] Database File Not Found, new will be made
+2022-03-14 00:12:53,000 FATAL a.f.RecordMaintenanceSystem [main] File Not found
+2022-03-14 00:13:22,778 ERROR a.f.RecordMaintenanceSystem [main] Issue With user defined config file: empty/missing, Defalut Configs used
+2022-03-14 00:13:22,860 ERROR a.f.RecordMaintenanceSystem [main] Database File Not Found, new will be made
+2022-03-14 00:13:22,860 FATAL a.f.RecordMaintenanceSystem [main] File Not found
+2022-03-14 00:15:12,672 ERROR a.f.RecordMaintenanceSystem [main] Issue With user defined config file: empty/missing, Defalut Configs used
+2022-03-14 00:15:12,758 ERROR a.f.RecordMaintenanceSystem [main] Database File Not Found, new will be made
+2022-03-14 00:15:12,758 ERROR a.f.RecordMaintenanceSystem [main] File Not found
+2022-03-14 00:15:12,781 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 3
+2022-03-14 00:15:12,781 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 14
+2022-03-14 00:21:06,544 ERROR a.f.RecordMaintenanceSystem [main] Issue With user defined config file: empty/missing, Defalut Configs used
+2022-03-14 00:21:06,627 ERROR a.f.RecordMaintenanceSystem [main] Database File Not Found, new will be made
+2022-03-14 00:21:06,627 ERROR a.f.RecordMaintenanceSystem [main] File Not found
+2022-03-14 00:21:06,650 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 3
+2022-03-14 00:21:06,650 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 14
+2022-03-14 00:21:26,327 ERROR a.f.RecordMaintenanceSystem [main] Issue With user defined config file: empty/missing, Defalut Configs used
+2022-03-14 00:21:26,412 ERROR a.f.RecordMaintenanceSystem [main] Database File Not Found, new will be made
+2022-03-14 00:21:26,464 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 3
+2022-03-14 00:21:26,464 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 14
+2022-03-14 00:21:51,460 ERROR a.f.RecordMaintenanceSystem [main] Issue With user defined config file: empty/missing, Defalut Configs used
+2022-03-14 00:21:51,542 ERROR a.f.RecordMaintenanceSystem [main] Database File Not Found, new will be made
+2022-03-14 00:21:51,581 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 3
+2022-03-14 00:21:51,582 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 14
+2022-03-14 00:22:52,028 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 5
+2022-03-14 00:22:52,031 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 12
+2022-03-14 00:26:20,192 FATAL a.f.RecordMaintenanceSystem [main] File Not Found
+2022-03-14 00:26:37,575 FATAL a.f.RecordMaintenanceSystem [main] File Not Found
+2022-03-14 00:27:08,409 FATAL a.f.RecordMaintenanceSystem [main] File Not Found
+2022-03-14 00:31:00,051 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 5
+2022-03-14 00:31:00,055 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 12
+2022-03-14 00:32:16,502 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 20
+2022-03-14 00:32:16,504 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : -3
+2022-03-14 00:32:36,086 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 20
+2022-03-14 00:32:36,088 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : -3
+2022-03-14 00:32:57,103 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 5
+2022-03-14 00:32:57,105 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 12
+2022-03-14 00:33:32,795 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 5
+2022-03-14 00:33:32,797 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 12
+2022-03-14 00:35:26,385 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 5
+2022-03-14 00:35:26,388 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 12
+2022-03-14 00:36:42,196 INFO a.f.RecordMaintenanceSystem [main] Total Duplicate values overwritten : 5
+2022-03-14 00:36:42,199 INFO a.f.RecordMaintenanceSystem [main] Total new Records added : 12

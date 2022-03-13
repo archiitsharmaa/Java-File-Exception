@@ -9,43 +9,29 @@ import java.util.Properties;
 
 //The following class acts as a basic template to access config file
 public class ReadProperties {
-	
 
 	// log4j instance
 	public static Logger logger = LogManager.getLogger(RecordMaintenanceSystem.class.getName());
+	// intialization
+	public static Properties configFile = new Properties();
 
-	// the following function returns the properties instance which can be used to
-	// access the configs
-	public static Properties getFile() throws Exception{
-
-		// intialization
-		Properties configFile = new Properties();
+	// the following function returns the properties instance which can be used
+	// toaccess the configs
+	public static void getFile() {
 
 		// try with resources to open and access the config file
-		try (FileInputStream propertyfile = new FileInputStream(
-				 "./resources/config.properties")) {
+		try (FileInputStream propertyfile = new FileInputStream("./resources/config.properties")) {
 			configFile.load(propertyfile);
 		}
 		// logs the error and exists the system in case of empty config file
 		catch (IOException e) {
-			
-			logger.error("Issue With user defined config file: empty/missing, Defalut Config File used");
-			
-			try (FileInputStream propertyfile = new FileInputStream("./resources/defaultconfig.properties")) {
-				configFile.load(propertyfile);
-			}
-			
-			catch(IOException exception) {
-			throw new Exception("Default configs also missing ");
-			}
-			
-			
-			
-			
+			logger.error("Issue With user defined config file: empty/missing, Defalut Configs used");
 		}
-		
-		return configFile;
+	}
 
+	// the following fucntion returns the property type
+	public static String getResource(String property) {
+		return configFile.getProperty(property);
 	}
 
 }

@@ -5,10 +5,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,8 +23,14 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 /**
- * The following class is purposed to work as a Record Maintains System
- * 
+	The following class is purposed to work as a Record Maintains System
+		a) Read a file (CSV format) e.g ID,Name,Add,Gender,....etc. (ID is unique key of each record)
+		b) Insert all the records in a target file (in the same format) e.g FileName :- EmployeeData.dat.
+		c) Make sure it must not duplicate the records in target file, infact overwrite the record which is already present.
+		d) At the end, must display how many new records have been added and how many over-written.
+		e) Save previous record value, for each record over-written.
+		f) And show all the newly added ids in sorted order.
+
  * @author archit.sharma
  *
  */
@@ -32,17 +39,28 @@ public class RecordMaintenanceSystem {
 
 	// static variables accessed as global variables
 	public static int duplicateCount = 0;
-	public static LinkedHashSet<Employee> valuesUpdated = new LinkedHashSet<>();
+	public static List<Employee> valuesUpdated = new ArrayList<>();
 	public static Logger log = LogManager.getLogger(RecordMaintenanceSystem.class.getName());
-	
-	// This method reads a file location and converts the data into list of javaBeans
-	public static List<Employee> csvReader(String file) throws Exception {
 
-		// try catch block to read a file data and add there values to java bean objects using opencsv
+	// default config routes
+	public final static String INPUT_DATA_DEFAULT_PATH = "./data/RawEmployeeRecord.csv";
+	public final static String TARGET_DATABASE_DEFAULT_PATH = "./data/EmployeeData.dat";
+	public final static String UPDATED_VALUES_DEFAULT_PATH = "./data/OldRecords.csv";
+
+	// This method reads a file location and converts the data into list of
+	// javaBeans
+	public static List<Employee> csvFileReader(String file) throws Exception {
+
+		if (file == null || file.isEmpty()) {
+			file = INPUT_DATA_DEFAULT_PATH;
+		}
+
+		// try catch block to read a file data and add there values to java bean objects
+		// using opencsv
 		List<Employee> csvBeanReader = null;
 		try (FileReader dataFile = new FileReader(file)) {
-			
-			//convert file to bean list
+
+			// convert file to bean list
 			csvBeanReader = new CsvToBeanBuilder(dataFile).withType(Employee.class).build().parse();
 
 			// throws error when the file is empty
@@ -58,11 +76,45 @@ public class RecordMaintenanceSystem {
 		return csvBeanReader;
 	}
 
+	// This method reads a file location and converts the data into list of
+	// javaBeans
+	public static List<Employee> csvDatabaseReader(String file) {
+
+		if (file == null || file.isEmpty()) {
+			file = TARGET_DATABASE_DEFAULT_PATH;
+		}
+
+		// try catch block to read a file data and add there values to java bean objects
+		// using opencsv
+		List<Employee> csvBeanReader = null;
+		try (FileReader dataFile = new FileReader(file)) {
+
+			// convert file to bean list
+			csvBeanReader = new CsvToBeanBuilder(dataFile).withType(Employee.class).build().parse();
+
+			// throws error when the file is empty
+			if (csvBeanReader.size() == 0) {
+				log.error("The database record were empty");
+			}
+
+		} catch (FileNotFoundException e) {
+			log.error("Database File Not Found, new will be made");
+		} catch (IOException e) {
+			log.error("The Database read failed, new will be made");
+		}
+		return csvBeanReader;
+	}
+
 	// This method takes a list of bean objects and maps them to a hash map
 	public static LinkedHashMap<String, Employee> beanMapper(List<Employee> beanList) {
 
 		// Hash map declaration
 		LinkedHashMap<String, Employee> userRecordMap = new LinkedHashMap<>();
+
+		// checking for null values and return null values
+		if (beanList == null) {
+			return userRecordMap;
+		}
 		// Initializing values on map
 		for (Employee cr : beanList) {
 			userRecordMap.put(cr.getID(), cr);
@@ -76,9 +128,14 @@ public class RecordMaintenanceSystem {
 
 		// adding values to the map and separating the updated records
 		for (Employee cr : inputRecord) {
-			if (databaseRecord.put(cr.getID(), cr) != null) {
+
+			// employee object to store return types to be updated in values updated list
+			Employee updatedRecords = databaseRecord.put(cr.getID(), cr);
+
+			// adding repeated values to updated record
+			if (updatedRecords != null) {
 				duplicateCount++;
-				valuesUpdated.add(cr);
+				valuesUpdated.add(updatedRecords);
 			}
 		}
 
@@ -86,7 +143,11 @@ public class RecordMaintenanceSystem {
 	}
 
 	// This method writes data on the file
-	public static void recordWriter(String filepath, List<Employee> beanList) throws Exception {
+	public static void recordWriter(String filepath, List<Employee> beanList, String defaultPath) throws Exception {
+
+		if (filepath == null || filepath.isEmpty()) {
+			filepath = defaultPath;
+		}
 
 		// try catch block to write files
 		try (FileWriter writer = new FileWriter(filepath)) {
@@ -106,111 +167,100 @@ public class RecordMaintenanceSystem {
 			beanWriter.write(beanList);
 
 		} catch (FileNotFoundException e) {
-			throw new Exception("File Not found");
+			log.error("File Not found");
 		} catch (IOException e) {
-			throw new Exception("The File write unsuccessfull");
+			log.error("The File write unsuccessfull");
 		} catch (CsvDataTypeMismatchException e) {
-			throw new Exception("CSV data format mismatch");
+			log.error("CSV data format mismatch");
 		} catch (CsvRequiredFieldEmptyException e) {
-			throw new Exception("CSV data required field empty");
+			log.error("CSV data required field empty");
 		}
 	}
-	
-	//method to get the file path from the config file values
-	public static String filePathGenrator (String property, Properties pathConfigs) throws Exception {
-		
-		//returns the path if the name of the property is correct and present
-		try {
-		return pathConfigs.getProperty(property);
-		}
-		
-		//throws error if the property name is wrong
-		catch(Exception e) {
-			throw new Exception("Property name entered wrong");
-		}
-		
+
+	// resource initializer checks for the resource file's error and exceptions in
+	// it, if present empty etc
+	public static void resourceIntializer() {
+		// configures from the config files
+		ReadProperties.getFile();
 	}
-	
-	//resource initializer checks for the resource file's error and exceptions in it, if present empty etc
-	public static Properties resourceIntializer() throws Exception {
-		
-		//returns the configuration from the config files
-		try {
-			return ReadProperties.getFile();
-			
-		}
-		//throws error if both the user defined as well as default configs are missing
-		catch(Exception e) {
-			throw new Exception(e.getMessage());
-		}
-				
-	}
-	
-	
-	//gets the duplicate records from the input file stores them and removes them with lateset values
+
+	// gets the duplicate records from the input file stores them and removes them
+	// with lateset values
 	public static List<Employee> inputDuplicateRecorder(List<Employee> rawData) {
-		//hashset fot unique values
-		LinkedHashSet<Employee> inputDataSet = new LinkedHashSet<>();
-		
-		//lop to enter the valus from the list into set and get the correct duplicate counter
-		for(Employee emp : rawData) {
-			if(!inputDataSet.add(emp)) {
+
+		// hashmap to detect unique values based on id
+		LinkedHashMap<String, Employee> inputDataMap = new LinkedHashMap<String, Employee>();
+
+		// lop to enter the valus from the list into set and get the correct duplicate
+		// counter
+		for (Employee emp : rawData) {
+
+			// employee object to store return types to be updated in values updated list
+			Employee updatedRecord = inputDataMap.put(emp.getID(), emp);
+
+			// adding repeated values to updated record
+			if (updatedRecord != null) {
 				duplicateCount++;
-				valuesUpdated.add(emp);
+				valuesUpdated.add(updatedRecord);
 			}
 		}
-		
-		//returns the value in arraylist
-		return new ArrayList<Employee> (inputDataSet);
-		
+
+		// returns the value in arraylist
+		return new ArrayList<Employee>(inputDataMap.values());
+
 	}
-	
-	//main function
+
+	// main function
 	public static void main(String[] args) {
-		
-		//try values stops functioning if previous linked values is missing with error message
+
+		// try values stops functioning if previous linked values is missing with error
+		// message
 		try {
-		
-		//intializes the resources (config) file	
-		Properties pathConfigFile = resourceIntializer();
-		
-				// reading files and storing them in a list of bean
-		List<Employee> inputData = csvReader(
-				filePathGenrator("inputataFile", pathConfigFile));
-		
-		//getting duplicated from input records and removing them
-		inputData = inputDuplicateRecorder(inputData);
-		
-		// reading files and storing them in a list of bean
-		List<Employee> targetEmployeeData = csvReader(
-				filePathGenrator("inputDatabase", pathConfigFile));
-				
-		// mapping bean objects to map
-		LinkedHashMap<String, Employee> targetEmployeeDataMap = beanMapper(targetEmployeeData);
-		LinkedHashMap<String, Employee> updatedEmployeeData = newValuesMapper(targetEmployeeDataMap, inputData);
 
-		// map values to bean object list
-		List<Employee> employeeRecordBean = new ArrayList<>(updatedEmployeeData.values());
-		
-		// writing final data on database file
-		String employeeRecordFile = filePathGenrator("targetDataFile", pathConfigFile);
-		recordWriter(employeeRecordFile, employeeRecordBean);
+			// Initializes the resources (config) file
+			resourceIntializer();
 
-		//writing final data on updated values
-		String valueUpdatedRecordFile = filePathGenrator("updatedDataRecordFile", pathConfigFile);
-		recordWriter(valueUpdatedRecordFile, (new ArrayList<Employee>(valuesUpdated)));
+			// intializing file path from the property
+			String inputdataConfigPath = ReadProperties.getResource("inputDataFile");
+			String targetDatabaseConfigPath = ReadProperties.getResource("tagetDatabase");
 
-		//logging required values
-		log.info("Total Duplicate values overwritten : " + duplicateCount);
-		log.info("Total new Records added : " + (inputData.size() - duplicateCount));
+			// reading files and storing them in a list of bean
+			List<Employee> inputData = csvFileReader(inputdataConfigPath);
+
+			// getting duplicated from input records and removing them
+			inputData = inputDuplicateRecorder(inputData);
+
+			// sort array of objects based on name
+			Collections.sort(inputData, Comparator.comparing(Employee::getName));
+
+			// reading files and storing them in a list of bean
+			List<Employee> targetEmployeeData = csvDatabaseReader(targetDatabaseConfigPath);
+
+			// mapping bean objects to map
+			LinkedHashMap<String, Employee> targetEmployeeDataMap = beanMapper(targetEmployeeData);
+			LinkedHashMap<String, Employee> updatedEmployeeData = newValuesMapper(targetEmployeeDataMap, inputData);
+
+			// map values to bean object list
+			List<Employee> employeeRecordBean = new ArrayList<>(updatedEmployeeData.values());
+
+			// writing final data on database file
+			recordWriter(targetDatabaseConfigPath, employeeRecordBean, TARGET_DATABASE_DEFAULT_PATH);
+
+			// writing final data on updated values
+			String valueUpdatedRecordFile = ReadProperties.getResource("updatedDataRecordFile");
+			recordWriter(valueUpdatedRecordFile, valuesUpdated, UPDATED_VALUES_DEFAULT_PATH);
+
+			// logging required values
+			log.info("Total Duplicate values overwritten : " + duplicateCount);
+			log.info("Total new Records added : " + (inputData.size() - duplicateCount));
 		}
-		
-		//catching exceptions
-		catch(Exception e) {
+
+		// catching exceptions
+		catch (Exception e) {
 			log.fatal(e.getMessage());
 		}
 
 	}
-	
+
 }
 		
